@@ -58,14 +58,16 @@ class TableController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Table $table
-     * @return Table
+     * @return \Inertia\Response
      */
     public function show(Table $table)
     {
         $table->load('settings');
         $background = Background::query()->where('id', $table->settings->background_id)->first();
         $table->settings['background'] = $background;
-        return $table;
+        return Inertia::render('Table/Show', [
+            'table' => $table
+        ]);
     }
 
     /**
