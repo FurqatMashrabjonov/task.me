@@ -11,7 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::group(['prefix' => 'admin'], __DIR__ . '/admin/index.php');
+//    Route::group(['prefix' => 'admin'], __DIR__ . '/admin/index.php');
 
 });
 
