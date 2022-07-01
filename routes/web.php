@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SearchUserController;
 use App\Http\Controllers\TableController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,4 @@ require __DIR__ . '/auth.php';
 //});
 
 
+Route::get('/find', [SearchUserController::class, 'search']);

@@ -6,6 +6,7 @@ import BreezeButton from '@/Components/Button.vue';
 import BreezeInput from '@/Components/Input.vue';
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
+import SearchUser from "@/components/SearchUser";
 
 const table = useForm({
     name: '',
@@ -85,6 +86,13 @@ const submit = () => {
 
                             </div>
 
+                            <hr class="mt-5 mb-2">
+
+                            <div>
+                                <h4 class="m-2">Add User</h4>
+                                <SearchUser @selected="userSelected"/>
+                            </div>
+
                             <div class="flex items-center justify-end mt-4">
 
                                 <BreezeButton class="ml-4" :class="{ 'opacity-25': table.processing }"
@@ -111,6 +119,23 @@ export default {
         Button,
         Link
     },
+    data() {
+        return {
+            addedUsers: []
+        }
+    },
+    methods: {
+        userSelected(user) {
+            this.addedUsers.forEach((addedUser) => {
+                if (addedUser.id === user.id) {
+                    console.log(user.username + ' has already been added to list')
+                    return false
+                }
+            })
+            this.addedUsers.push(user)
+            console.log(user.username + ' was added')
+        }
+    }
 };
 </script>
 
@@ -118,7 +143,8 @@ export default {
 .button_back:hover {
     opacity: 0.75;
 }
-.selected_back_border{
+
+.selected_back_border {
     border: 2px solid #232222;
     opacity: 0.75;
 }
