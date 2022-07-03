@@ -9,4 +9,8 @@ class TableSetting extends Model
 {
     use HasFactory;
     protected $fillable = ['table_id', 'background_id'];
+
+    public function background(){
+        return $this->belongsTo(Background::class);
+    }
 }

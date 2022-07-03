@@ -18,24 +18,47 @@ import {Head} from '@inertiajs/inertia-vue3';
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <Link :href="route('table.create')" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
-                           +Create Table
+                        <Link :href="route('table.create')"
+                              class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+                            +Create Table
                         </Link>
 
 
-                        <hr>
-                        <div>
-                            <h3 class="display-5">
-                                My Tables
-                            </h3>
-                            <hr>
-                        </div>
-                        <ul>
-                            <li v-for="(table, i) in tables" :key="i">
-                                <Link :href="route('table.show', {'slug' : table.slug})">{{table.name}}</Link>
+                        <hr class="m-5">
 
-                            </li>
-                        </ul>
+                        <div class="container my-12 mx-auto px-4 md:px-12">
+                            <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+
+                                <div v-for="(table, i) in tables" :key="i"
+                                     class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+                                    <div
+                                        class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+                                        :style="table.settings.background.readyStyle">
+                                        <a href="#">
+                                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                {{ table.name }}</h5>
+                                        </a>
+
+                                        <Link :href="route('table.show', {table: table.slug})"
+                                              class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+                                            Go
+                                            <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </Link>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -45,7 +68,7 @@ import {Head} from '@inertiajs/inertia-vue3';
 <script>
 
 import Button from '@/components/Button'
-import { Link } from '@inertiajs/inertia-vue3';
+import {Link} from '@inertiajs/inertia-vue3';
 
 export default {
     props: ['tables'],
@@ -54,281 +77,7 @@ export default {
         Button,
         Link
     },
-    data() {
-        return {}
-    }
+
 };
 </script>
-<style scoped>
-.kanban {
-    display: flex;
-    justify-content: stretch;
-    width: 100%;
-    height: 100%;
-    user-select: none;
-}
 
-.kanban__move-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: #b0b0b0;
-    user-select: none;
-}
-
-.kanban__move-icon span {
-    margin-left: 10px;
-}
-
-.kanban__move-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-.kanban__drop-preview {
-    position: relative;
-    margin: 10px;
-    background-color: #edf1f3;
-    border: 2px dashed rgba(0, 0, 0, 0.059);
-    border-radius: 4px;
-}
-
-.kanban__drop-preview::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    color: #b0b0b0;
-    transform: translate(-50%, -50%);
-}
-
-.kanban__drop-preview::after {
-    position: absolute;
-    top: 50%;
-    left: 27%;
-    width: 20px;
-    height: 20px;
-    content: "";
-    transform: translate(-50%, -50%);
-}
-
-.kanban__description {
-    display: flex;
-    align-items: center;
-}
-
-.kanban__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #edf5f7;
-    padding: 0.5rem;
-    border-radius: 8px;
-}
-
-.kanban__title {
-    margin: 0 0 0 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #555;
-}
-
-.kanban__quantity {
-    margin-top: 0;
-    font-size: small;
-    color: #b0b0b0;
-    text-align: right;
-}
-
-.kanban__quantity--inner-count {
-    margin: 1rem 1rem 0 1rem;
-    padding-top: 0.5rem;
-}
-
-.kanban__column {
-    flex: 1;
-    height: fit-content;
-    padding: 10px;
-    border-radius: 6px;
-    transition: height 0.5s ease;
-    border: 1px solid #e0e0e0;
-}
-
-.kanban__column:not(:first-of-type) {
-    margin-left: 15px;
-}
-
-.kanban__column--no-border {
-    border: none;
-}
-
-.kanban__header {
-    margin-bottom: 15px;
-    background-color: #fff;
-}
-
-.kanban__content {
-    position: relative;
-}
-
-.kanban__skeleton {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding-top: 15px;
-    padding-right: 15px;
-    background-color: #f8f8f8;
-    border-radius: 4px;
-    overflow: auto;
-}
-
-.kanban__skeleton-container {
-    width: 100%;
-}
-
-.kanban__skeleton-column {
-    flex: 1;
-    height: calc(100% - 30px);
-    padding: 10px;
-    margin-left: 15px;
-    background-color: #e9e9e9;
-    border-radius: 6px;
-}
-
-.kanban__skeleton-card {
-    position: relative;
-    height: 100px;
-    padding: 15px;
-    margin-top: 16px;
-    background-color: #f5f5f5;
-    border-radius: 6px;
-}
-
-.kanban__skeleton-card--one {
-    position: absolute;
-    top: 8px;
-}
-
-.kanban__skeleton-card--two {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-}
-
-.kanban__skeleton-card--three {
-    position: absolute;
-    top: 30px;
-}
-
-.kanban__skeleton-card--four {
-    position: absolute;
-    bottom: 2rem;
-}
-
-.kanban__skeleton-card--five {
-    position: absolute;
-    left: 1rem;
-    bottom: 0.5rem;
-}
-
-.item,
-.draggable-item,
-.draggable-item-horizontal {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin: 8px;
-    cursor: pointer;
-    user-select: none;
-    background-color: white;
-    border: 1px solid transparent;
-    border-left: 5px solid #e0e0e0;
-    border-radius: 4px;
-    transition: border-color 0.2s linear;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-.item .card {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.item .card small {
-    color: #838383;
-}
-
-.item.open {
-    border-left: 5px solid #f3c1c1;
-}
-
-.item.executing {
-    border-left: 5px solid #c4ebaf;
-}
-
-.item.finished {
-    border-left: 5px solid #b3d5e9;
-}
-
-.item.paralised {
-    border-left: 5px solid #dc3545;
-}
-
-.item.review {
-    border-left: 5px solid #e0e0e0;
-}
-
-.badge {
-    margin: 1rem 0;
-    cursor: pointer;
-}
-
-.label {
-    color: #838383;
-    margin-bottom: 5px;
-}
-
-.kanban-action {
-    display: flex;
-    justify-content: space-between;
-}
-
-.kanban-button {
-    max-width: 130px;
-    pointer-events: none;
-    border: none;
-    color: #f7f7f7;
-    padding: 1px 20px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 100px;
-}
-
-.kanban-button.open {
-    background-color: #f3c1c1;
-}
-
-.kanban-button.executing {
-    background-color: #c4ebaf;
-}
-
-.kanban-button.finished {
-    background-color: #b3d5e9;
-}
-
-.kanban-button.paralised {
-    background-color: #dc3545;
-}
-
-.kanban-button.review {
-    background-color: #e0e0e0;
-}
-
-.kanban-cards {
-    display: flex;
-    justify-content: center;
-    margin: 5px 0;
-}
-</style>

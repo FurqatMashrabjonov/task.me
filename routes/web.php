@@ -8,17 +8,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     if (auth()->check()){
         return redirect('/dashboard');
@@ -36,7 +25,9 @@ Route::controller(MainController::class)
     ->middleware(['auth', 'verified'])
     ->group(function (){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::get('/notifications', 'notifications')->name('notifications');
+        Route::get('/notifications', 'showNotifications')->name('notifications');
+        Route::post('/notifications', 'getNotificationsCount')->name('notifications');
+
     });
 
 

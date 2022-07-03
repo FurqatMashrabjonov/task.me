@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\BackgroundType;
 use App\Models\Background;
 use App\Models\Table;
 use App\Providers\RouteServiceProvider;
@@ -64,6 +65,13 @@ class TableController extends Controller
     {
         $table->load('settings');
         $background = Background::query()->where('id', $table->settings->background_id)->first();
+        $readyStyle = [];
+        if ($background['type'] == BackgroundType::IMAGE){
+            $readyStyle = ['backgroundImage' => "url(/backgrounds/$background->id/main.jpg)"];
+        }else if ($background['type'] == BackgroundType::COLOR){
+            $readyStyle = ['backgroundColor' => $background['color']];
+        }
+        $background['readyStyle'] = $readyStyle;
         $table->settings['background'] = $background;
         return Inertia::render('Table/Show', [
             'table' => $table
