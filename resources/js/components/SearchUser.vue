@@ -1,8 +1,7 @@
 <template>
     <div class="flex">
         <div class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-            <BreezeInput id="username" @change="search" type="text" class="border-none block w-full" v-model="username"
-                         required autofocus autocomplete="name"/>
+            <BreezeInput @change="search" type="text" class="border-none block w-full" v-model="username"/>
             <a v-for="(user, index) in users" :key="index"
               @click="selected(user)"
                class="

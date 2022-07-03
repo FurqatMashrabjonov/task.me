@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TableOwner extends Model
+class NotificationSetting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['table_id', 'user_id', 'status'];
+    protected $fillable = ['notification_id', 'team_id'];
 }

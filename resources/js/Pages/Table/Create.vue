@@ -8,23 +8,12 @@ import BreezeLabel from '@/Components/Label.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import SearchUser from "@/components/SearchUser";
 
-const table = useForm({
-    name: '',
-    settings: {
-        background_id: 5
-    }
-});
 
-const setBackground = (id) => {
-    table.settings.background_id = id
-    console.log(table.settings)
-}
-
-const submit = () => {
-    table.post(route('table.store'), {
-        onFinish: () => table.reset('name'),
-    });
-};
+// const submit = () => {
+//     table.post(route('table.store'), {
+//         onFinish: () => table.reset('name'),
+//     });
+// };
 </script>
 
 <template>
@@ -45,8 +34,8 @@ const submit = () => {
 
                         <form @submit.prevent="submit">
                             <div>
-                                <BreezeLabel for="name" value="Name"/>
-                                <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="table.name"
+                                <BreezeLabel for="tablename" value="Name"/>
+                                <BreezeInput id="tablename" type="text" class="mt-1 block w-full" v-model="table.name"
                                              required autofocus autocomplete="name"/>
                             </div>
 
@@ -63,7 +52,7 @@ const submit = () => {
                                         :class="{'selected_back_border': backImg.id === table.settings.background_id}"
                                         @click="setBackground(backImg.id)"
                                         :style="{
-                                            backgroundImage: `url(http://restaurant/backgrounds/${backImg.id}/small.jpg`,
+                                            backgroundImage: `url(/backgrounds/${backImg.id}/small.jpg`,
                                             width: '100px',
                                              height: '80px'
                                         }"
@@ -90,7 +79,16 @@ const submit = () => {
 
                             <div>
                                 <h4 class="m-2">Add User</h4>
-                                <SearchUser @selected="userSelected"/>
+                                <div class="flex">
+                                    <SearchUser @selected="userSelected"/>
+                                    <div class="ml-2">
+                                        <ol>
+                                            <li v-for="(user, i) in table.settings.addedUsers" :key="i">
+                                                @{{ user.username }}
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
@@ -110,7 +108,7 @@ const submit = () => {
 <script>
 
 import Button from '@/components/Button'
-import {Link} from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 
 export default {
     props: ['backgrounds'],
@@ -121,19 +119,36 @@ export default {
     },
     data() {
         return {
-            addedUsers: []
+            table: useForm({
+                name: '',
+                settings: {
+                    background_id: 5,
+                    addedUsers: []
+                },
+            })
         }
     },
     methods: {
+        setBackground(id) {
+            this.table.settings.background_id = id
+            // console.log(table.settings)
+        },
+        submit() {
+            this.table.post(route('table.store'), {
+                onFinish: () => table.reset('name'),
+            });
+        },
         userSelected(user) {
-            this.addedUsers.forEach((addedUser) => {
+            let found = false
+            this.table.settings.addedUsers.forEach((addedUser) => {
                 if (addedUser.id === user.id) {
                     console.log(user.username + ' has already been added to list')
-                    return false
+                    found = !found
                 }
             })
-            this.addedUsers.push(user)
-            console.log(user.username + ' was added')
+            if(!found) {
+                this.table.settings.addedUsers.push(user)
+            }
         }
     }
 };

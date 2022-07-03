@@ -20,17 +20,23 @@ use Intervention\Image\Facades\Image;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    if (auth()->check()){
+        return redirect('/dashboard');
+    }else {
+        return Inertia::render('Welcome', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ]);
+    }
+
 });
 Route::controller(MainController::class)
     ->middleware(['auth', 'verified'])
     ->group(function (){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/notifications', 'notifications')->name('notifications');
     });
 
 
@@ -46,13 +52,13 @@ Route::controller(TableController::class)
 
 require __DIR__ . '/auth.php';
 
-//Route::get('/image', function (\Illuminate\Http\Request $request) {
-//    $img = Image::make(storage_path('app/backgrounds/'. $request->number .'/main.jpg'));
-//    $img->resize(400, null, function ($const) {
-//        $const->aspectRatio();
-//    })->save(storage_path('app/backgrounds/' . $request->number . '/small.jpg'));
-//
-//});
+Route::get('/image', function (\Illuminate\Http\Request $request) {
+    $img = Image::make(storage_path('app/backgrounds/'. $request->number .'/main.jpg'));
+    $img->resize(400, null, function ($const) {
+        $const->aspectRatio();
+    })->save(storage_path('app/backgrounds/' . $request->number . '/small.jpg'));
+
+});
 
 
 Route::get('/find', [SearchUserController::class, 'search']);

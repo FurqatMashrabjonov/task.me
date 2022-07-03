@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TableSetting extends Model
 {
     use HasFactory;
+    protected $fillable = ['table_id', 'background_id'];
 }
