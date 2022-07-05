@@ -20,7 +20,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                     <div class="p-6 bg-white border-b border-gray-200">
                         <ul>
                             <li v-for="(note, i) in notifications" :key="i">
-                                <Link href="#">{{note.user_id}}</Link>
+                                <Link href="#">{{note.content}}</Link>
 
                             </li>
                         </ul>

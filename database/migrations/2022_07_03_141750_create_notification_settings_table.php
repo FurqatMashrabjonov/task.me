@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('notification_settings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('notification_id');
-            $table->unsignedBigInteger('team_id')->nullable();
+            $table->unsignedBigInteger('table_id')->nullable();
             //TODO: keyin yana nimadurlar qowiladi
             $table->timestamps();
         });

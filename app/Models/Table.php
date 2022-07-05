@@ -23,7 +23,7 @@ class Table extends Model
         return $query->select(['name', 'slug', 'created_at']);
     }
 
-    public function owner(): BelongsTo
+    public function ownerUser(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -376,16 +376,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.3.8",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "f69e63262dadd02b3b6edade339c7badda2939c2"
+                "reference": "015f524c9969255a29cdea8890cbd4fec240ee47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/f69e63262dadd02b3b6edade339c7badda2939c2",
-                "reference": "f69e63262dadd02b3b6edade339c7badda2939c2",
+                "url": "https://api.github.com/repos/composer/composer/zipball/015f524c9969255a29cdea8890cbd4fec240ee47",
+                "reference": "015f524c9969255a29cdea8890cbd4fec240ee47",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +466,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.3.8"
+                "source": "https://github.com/composer/composer/tree/2.3.9"
             },
             "funding": [
                 {
@@ -482,7 +482,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-01T10:10:47+00:00"
+            "time": "2022-07-05T14:52:11+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -3612,16 +3612,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.55.1",
+            "version": "v5.56.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "4676619e2ddc1b516715885bb32142bd0658b6bd"
+                "reference": "ec52890d667addd4e3e3bd18f2327939e8da737e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/4676619e2ddc1b516715885bb32142bd0658b6bd",
-                "reference": "4676619e2ddc1b516715885bb32142bd0658b6bd",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/ec52890d667addd4e3e3bd18f2327939e8da737e",
+                "reference": "ec52890d667addd4e3e3bd18f2327939e8da737e",
                 "shasum": ""
             },
             "require": {
@@ -3739,7 +3739,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-22T13:21:15+00:00"
+            "time": "2022-07-04T13:52:49+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4363,16 +4363,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.5",
+            "version": "v0.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf"
+                "reference": "3f5b5f8aaa979fbd0d1783173f4c82ad529fe621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/c23686f9c48ca202710dbb967df8385a952a2daf",
-                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/3f5b5f8aaa979fbd0d1783173f4c82ad529fe621",
+                "reference": "3f5b5f8aaa979fbd0d1783173f4c82ad529fe621",
                 "shasum": ""
             },
             "require": {
@@ -4433,9 +4433,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.5"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.6"
             },
-            "time": "2022-05-27T18:03:49+00:00"
+            "time": "2022-07-03T16:40:23+00:00"
         },
         {
             "name": "pusher/pusher-php-server",

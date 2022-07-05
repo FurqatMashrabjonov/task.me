@@ -31,4 +31,9 @@ class UserNotification
 
     }
 
+    public static function makeContent(Notification $notification)
+    {
+
+    }
+
 }

@@ -9,6 +9,7 @@ import DragAndDrop from "@/components/DragAndDrop";
     <Head :title="table.name"/>
 
     <BreezeAuthenticatedLayout>
+
         <div class="overflow-x-scroll" :style="table.settings.background.readyStyle">
             <div :style="{height: $window_height + 'px'}"></div>
             <!--          <DragAndDrop />-->

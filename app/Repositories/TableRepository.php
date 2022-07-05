@@ -27,14 +27,16 @@ class TableRepository
         $table = Table::query()->create($data);
         $data['settings']['table_id'] = $table->id;
 
+        $data['settings']['addedUsers'][] = auth()->user();
+
         if (count($data['settings']['addedUsers']) != 0) {
             foreach ($data['settings']['addedUsers'] as $user) {
                 $owner = TableOwner::query()->create([
                     'table_id' => $table->id,
                     'user_id' => $user['id'],
-                    'status' => TableOwnerStatus::NOT_ACCEPTED
+                    'status' => (auth()->user()->getAuthIdentifier() == $user['id']) ? TableOwnerStatus::ACCEPTED : TableOwnerStatus::NOT_ACCEPTED
                 ]);
-                if ($owner) {
+                if ($owner && $owner->user_id !== auth()->user()->getAuthIdentifier()) {
                     UserNotification::joinToTeam($user['id'], $table->id);
                 }
             }

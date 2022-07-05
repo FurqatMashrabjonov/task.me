@@ -14,6 +14,7 @@ createInertiaApp({
         const myApp = createApp({ render: () => h(app, props) })
             .use(plugin)
             .mixin({ methods: { route } })
+        myApp.config.performance = false
         myApp.config.globalProperties.$window_height = window.innerHeight - 85;
             myApp.mount(el);
         return myApp
