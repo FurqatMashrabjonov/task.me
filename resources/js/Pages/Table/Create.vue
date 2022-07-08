@@ -6,7 +6,7 @@ import BreezeButton from '@/Components/Button.vue';
 import BreezeInput from '@/Components/Input.vue';
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import SearchUser from "@/components/SearchUser";
+import SearchUser from "@/components/SearchUser.vue";
 
 
 // const submit = () => {
@@ -107,7 +107,7 @@ import SearchUser from "@/components/SearchUser";
 </template>
 <script>
 
-import Button from '@/components/Button'
+import Button from '@/components/Button.vue'
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 
 export default {

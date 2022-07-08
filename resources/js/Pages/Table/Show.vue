@@ -1,7 +1,7 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import {Head} from '@inertiajs/inertia-vue3';
-import DragAndDrop from "@/components/DragAndDrop";
+import DragAndDrop from "@/components/DragAndDrop.vue";
 
 </script>
 
@@ -26,7 +26,7 @@ import DragAndDrop from "@/components/DragAndDrop";
 </template>
 <script>
 
-import Button from '@/components/Button'
+import Button from '@/components/Button.vue'
 import {Link} from '@inertiajs/inertia-vue3';
 
 export default {

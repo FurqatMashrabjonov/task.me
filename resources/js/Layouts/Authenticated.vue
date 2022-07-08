@@ -6,7 +6,7 @@ import BreezeDropdownLink from '@/Components/DropdownLink.vue';
 import BreezeNavLink from '@/Components/NavLink.vue';
 import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
-import NavNotification from "@/components/NavNotification";
+import NavNotification from "@/components/NavNotification.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
