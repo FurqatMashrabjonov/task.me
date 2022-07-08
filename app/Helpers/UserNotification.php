@@ -11,18 +11,17 @@ use App\Models\User;
 class UserNotification
 {
 
-    public static function joinToTeam($user_id, $team_id)
+    public static function joinToTeam($user_id, $table_id)
     {
         $notification = Notification::query()->create([
             'user_id' => $user_id,
             'type' => NotificationType::JOIN_TO_TYPE,
             'status' => NotificationStatus::NOTVIEWED
         ]);
-
         if ($notification) {
             return NotificationSetting::query()->create([
                 'notification_id' => $notification->id,
-                'team_id' => $team_id
+                'table_id' => $table_id
             ]);
             //Keyin notification qowiladi
         } else {

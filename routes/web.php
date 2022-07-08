@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SearchUserController;
 use App\Http\Controllers\TableController;
 use Illuminate\Foundation\Application;
@@ -9,9 +10,9 @@ use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
 Route::get('/', function () {
-    if (auth()->check()){
+    if (auth()->check()) {
         return redirect('/dashboard');
-    }else {
+    } else {
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -23,10 +24,15 @@ Route::get('/', function () {
 });
 Route::controller(MainController::class)
     ->middleware(['auth', 'verified'])
-    ->group(function (){
+    ->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::get('/notifications', 'showNotifications')->name('notifications');
-        Route::post('/notifications', 'getNotificationsCount')->name('notifications');
+
+        Route::prefix('/notifications')->group(function () {
+            Route::get('/', 'showNotifications')->name('notifications');
+            Route::post('/', 'getNotificationsCount')->name('notifications');
+
+            Route::get('/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
+        });
 
     });
 
@@ -44,7 +50,7 @@ Route::controller(TableController::class)
 require __DIR__ . '/auth.php';
 
 Route::get('/image', function (\Illuminate\Http\Request $request) {
-    $img = Image::make(storage_path('app/backgrounds/'. $request->number .'/main.jpg'));
+    $img = Image::make(storage_path('app/backgrounds/' . $request->number . '/main.jpg'));
     $img->resize(400, null, function ($const) {
         $const->aspectRatio();
     })->save(storage_path('app/backgrounds/' . $request->number . '/small.jpg'));

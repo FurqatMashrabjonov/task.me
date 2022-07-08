@@ -10,14 +10,20 @@ import {Head} from '@inertiajs/inertia-vue3';
     <BreezeAuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Notification
+                Notifications
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200" v-html="notification.html"></div>
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <ul>
+                            <li v-for="(note, i) in notifications" :key="i" style="border-bottom: #1a202c">
+                                <Link :href="route('notifications.show', {notification: note})">{{note.content}}</Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,8 +35,8 @@ import Button from '@/components/Button.vue'
 import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
-    props: ['notification'],
-    name: "Show",
+    props: ['notifications'],
+    name: "List",
 
     data() {
         return {}

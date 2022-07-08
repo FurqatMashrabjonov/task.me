@@ -54,12 +54,12 @@ class MainController extends Controller
 
         $notes = collect($notes)->map(function ($item) {
             if ($item->type == NotificationType::JOIN_TO_TYPE) {
-                $item['content'] = notificationContent()->joinToTable(Table::query()->where('id', $item->settings->table_id)->with(['ownerUser' => fn($q) => $q->select(['username'])])->first());
+                $item['content'] = notificationContent()->joinToTable(Table::query()->where('id', $item->settings->table_id)->with('user')->first());
                 return $item;
             }
         });
 
-        return Inertia::render('Notifications/Show', [
+        return Inertia::render('Notifications/List', [
             'notifications' => $notes
         ]);
     }
