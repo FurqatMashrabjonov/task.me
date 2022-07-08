@@ -67,7 +67,7 @@ import {Head} from '@inertiajs/inertia-vue3';
 </template>
 <script>
 
-import Button from '@/components/Button'
+import Button from '@/components/Button.vue'
 import {Link} from '@inertiajs/inertia-vue3';
 
 export default {
