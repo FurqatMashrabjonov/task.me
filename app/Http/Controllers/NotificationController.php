@@ -2,44 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\NotificationStatus;
+use App\Enums\NotificationType;
+use App\Enums\TableOwnerStatus;
 use App\Models\Notification;
+use App\Models\Table;
+use App\Models\TableOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -51,46 +25,33 @@ class NotificationController extends Controller
     {
         $this->authorize('show', $notification);
 
-        $notification['html'] = notificationContent()->renderHTML($notification);
+        $notification->status = NotificationStatus::VIEWED;
+
+        $notification->save();
+
+        $notification->load('settings');
         $date = new Carbon($notification->created_at);
-//        $notification->created_at = $date->diffForHumans();
-        //TODO: iwlamayapti diffForHumans
+        $notification['content'] = notificationContent()->joinToTable(Table::query()->where('id', $notification->settings->table_id)->with('user')->first());
+        $notification['created_date'] = $date->diffForHumans();
+        $notification['html'] = notificationContent()->renderHTML($notification);
         return Inertia::render('Notifications/Show', [
             'notification' => $notification
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Notification $notification
-     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Notification $notification)
+    public function accept(Notification $notification)
     {
-        //
+        $this->authorize('accept', $notification);
+
+        if ($notification->type == NotificationType::JOIN_TO_TYPE) {
+            TableOwner::query()->where('user_id', auth()->user()->getAuthIdentifier())->update([
+                'status' => TableOwnerStatus::ACCEPTED
+            ]);
+        }
+        return redirect('/dashboard');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Notification $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Notification $notification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Notification $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Notification $notification)
-    {
-        //
-    }
 }

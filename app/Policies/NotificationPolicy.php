@@ -14,4 +14,9 @@ class NotificationPolicy
     {
         return $user->id == $notification->user_id;
     }
+
+    public function accept(User $user, Notification $notification)
+    {
+        return $user->id == $notification->user_id;
+    }
 }

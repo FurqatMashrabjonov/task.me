@@ -32,6 +32,7 @@ Route::controller(MainController::class)
             Route::post('/', 'getNotificationsCount')->name('notifications');
 
             Route::get('/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
+            Route::get('/{notification}/accept', [NotificationController::class, 'accept'])->name('notifications.accept');
         });
 
     });
@@ -59,3 +60,5 @@ Route::get('/image', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/find', [SearchUserController::class, 'search']);
+
+

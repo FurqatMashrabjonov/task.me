@@ -12,5 +12,5 @@ use BenSampo\Enum\Enum;
 final class NotificationStatus extends Enum
 {
     const NOTVIEWED =   0;
-    const VIEWED =   0;
+    const VIEWED =      1;
 }
