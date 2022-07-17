@@ -17,7 +17,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
 
-Route::get('/vscode', function (){
-    \Illuminate\Support\Facades\Log::debug('keldiiiiiiiiii');
-    return response()->json(['keldi' => true]);
+Route::get('/vscode/{api_key}', function (Request $request){
+    \Illuminate\Support\Facades\Log::debug($request->api_key);
+    return response()->json(['keldi' => true, 'api_key' => $request->api_key]);
 });
