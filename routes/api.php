@@ -20,3 +20,8 @@ Route::group(['prefix' => 'v1'], function () {
 
 Route::post('/vscode/{token}', [VscodeController::class, 'main']);
 //Route::get('/vscode/{token}', [VscodeController::class, 'main']);
+
+Route::any('/github', function (Request $request){
+    \Illuminate\Support\Facades\Log::debug(json_encode($request->all()));
+    return true;
+});
