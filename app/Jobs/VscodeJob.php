@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class VscodeJob implements ShouldQueue
 {
@@ -33,6 +34,7 @@ class VscodeJob implements ShouldQueue
      */
     public function handle()
     {
+        $this->data['file'] = strrev(explode('\\', strrev($this->data['file']))[0]);
         $this->vscode->settings()->create($this->data);
     }
 }
